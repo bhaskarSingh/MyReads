@@ -60,12 +60,11 @@ class Book extends React.Component {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
-  getAuthorName = () => {
-    const authors = this.props.data.authors;
-    if (authors === undefined) return ""
-    return authors.map(
-        (author, index, arr) =>  index === (0 || arr.length-1) ? `${author} ` : `${author}, `
-        || "Author name not available");
+  getListSepratedByComma = (value) => {
+    if (value === undefined) return ""
+    return value.map(
+        (value, index, arr) =>  index === (0 || arr.length-1) ? `${value} ` : `${value}, `
+        || "Name not available");
   }
 
   getBookDescription = () => {
@@ -73,10 +72,6 @@ class Book extends React.Component {
       if (description === undefined) return ""
       const fullStop = description.indexOf('.');
       return description.substring(0, fullStop);
-  }
-
-  showBookCategoryOptions = () => {
-      
   }
 
   openBookPreview = () => {
@@ -98,7 +93,7 @@ class Book extends React.Component {
          title: classes.title
        }}
           title={this.props.data.title || "Name not available"}
-          subheader={this.getAuthorName()}
+          subheader={this.getListSepratedByComma(this.props.data.authors) || "Author name not available"}
         />
         <CardMedia
           className={classes.media}
@@ -130,29 +125,28 @@ class Book extends React.Component {
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph variant="body2">
-              Method:
+              Average Rating: {this.props.data.averageRating || 'No rating available'}
+            </Typography>
+            <Typography paragraph variant="body2">
+              Category: {this.getListSepratedByComma(this.props.data.categories) || 'No rating available'}
+            </Typography>
+            <Typography paragraph variant="body2">
+              Description:
             </Typography>
             <Typography paragraph>
-              Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-              minutes.
+              {this.getBookDescription()}
             </Typography>
-            <Typography paragraph>
-              Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-              heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-              browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving
-              chicken and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion,
-              salt and pepper, and cook, stirring often until thickened and fragrant, about 10
-              minutes. Add saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
+            <Typography paragraph variant="body2" >
+              MaturityRating: {this.props.data.maturityRating || 'Maturity rating not available'},
             </Typography>
-            <Typography paragraph>
-              Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
-              without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat
-              to medium-low, add reserved shrimp and mussels, tucking them down into the rice, and
-              cook again without stirring, until mussels have opened and rice is just tender, 5 to 7
-              minutes more. (Discard any mussels that don’t open.)
+            <Typography paragraph variant="body2" >
+              PageCount: {this.props.data.pageCount || 'Page count not avaliable'},
             </Typography>
-            <Typography>
-              Set aside off of the heat to let rest for 10 minutes, and then serve.
+            <Typography paragraph variant="body2" >
+              PublishedDate: {this.props.data.publishedDate || 'Publish date not available'},
+            </Typography>
+            <Typography paragraph variant="body2" >
+              Publisher: {this.props.data.publisher || 'Publisher name not available'}
             </Typography>
           </CardContent>
         </Collapse>
