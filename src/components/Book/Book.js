@@ -69,7 +69,7 @@ class Book extends React.Component {
 
   getBookDescription = () => {
       const description = this.props.data.description;
-      if (description === undefined) return ""
+      if (description === undefined) return "Description not available"
       const fullStop = description.indexOf('.');
       return description.substring(0, fullStop);
   }
@@ -134,7 +134,7 @@ class Book extends React.Component {
               Description:
             </Typography>
             <Typography paragraph>
-              {this.getBookDescription()}
+              {this.getBookDescription() || 'Description not available'}
             </Typography>
             <Typography paragraph variant="body2" >
               MaturityRating: {this.props.data.maturityRating || 'Maturity rating not available'},
