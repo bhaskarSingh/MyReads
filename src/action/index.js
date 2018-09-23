@@ -7,3 +7,11 @@ export function getAllBooks(){
         payload: request
     }
 }
+
+export function updateBookCategory(book, shelf){
+    const request = BookApis.update(book, shelf).then(response => response)
+    return {
+        type: 'UPDATE_BOOK',
+        payload: request
+    }
+}

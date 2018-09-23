@@ -6,10 +6,6 @@ import { getAllBooks } from '../action'
 
 class BooksContainer extends Component {
 
-    state = {
-        data: []
-    }
-
     componentDidMount(){
         this.props.getAllBooks();
     }
@@ -17,7 +13,12 @@ class BooksContainer extends Component {
     render() {
         return (
             <div>
+                <p>Reading</p>
+                <BookShelf data={this.props.data.books} type="currentlyReading" />
+                <p>Want to read</p>
                 <BookShelf data={this.props.data.books} type="wantToRead" />
+                <p>Read</p>
+                <BookShelf data={this.props.data.books} type="read" />
             </div>
         )
     }
