@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import * as BooksApi from '../BooksAPI';
 import BookShelf from '../components/BookShelf';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getAllBooks } from '../action'
 
 class BooksContainer extends Component {
 
@@ -9,21 +11,29 @@ class BooksContainer extends Component {
     }
 
     componentDidMount(){
-        BooksApi.getAll().then((response) => {
-            console.log(response);
-            this.setState({
-                data: response
-            })
-        })
+        this.props.getAllBooks();
     }
 
     render() {
         return (
             <div>
-                <BookShelf data={this.state.data} type="wantToRead" />
+                <BookShelf data={this.props.data.books} type="wantToRead" />
             </div>
         )
     }
 }
 
-export default BooksContainer;
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        data: state.books
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        getAllBooks
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BooksContainer);
