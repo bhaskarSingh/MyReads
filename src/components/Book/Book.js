@@ -16,6 +16,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import BookCategoryOption from './BookCategoryOption';
+import INF from '../../images/noImageAvailable.jpg'
 
 const styles = theme => ({
   card: {
@@ -67,6 +68,11 @@ class Book extends React.Component {
         || "Name not available");
   }
 
+  getbookImage = () => {
+    if(!this.props.data.imageLinks) return INF
+    return this.props.data.imageLinks.thumbnail
+  }
+
   getBookDescription = () => {
       const description = this.props.data.description;
       if (description === undefined) return "Description not available"
@@ -98,7 +104,7 @@ class Book extends React.Component {
         <CardMedia
           className={classes.media}
           style={{height: '250px', width:'150px', margin:'0 auto'}}
-          image={this.props.data.imageLinks.thumbnail || "Image not available"}
+          image={this.getbookImage()}
           title="Contemplative Reptile"
         />
         <CardActions className={classes.actions} disableActionSpacing>
