@@ -3,6 +3,7 @@ import BookShelf from '../components/BookShelf';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllBooks } from '../action'
+import './BookContainer.css'
 
 class BooksContainer extends Component {
 
@@ -13,12 +14,18 @@ class BooksContainer extends Component {
     render() {
         return (
             <div>
-                <p>Reading</p>
-                <BookShelf data={this.props.data.books} type="currentlyReading" />
-                <p>Want to read</p>
-                <BookShelf data={this.props.data.books} type="wantToRead" />
-                <p>Read</p>
-                <BookShelf data={this.props.data.books} type="read" />
+                <h2 className="bookShelfTitle">Currently Reading</h2>
+                <div className="scrollingWrapper">
+                    <BookShelf data={this.props.data.books} type="currentlyReading" />
+                </div>
+                <h2 className="bookShelfTitle">Want to read</h2>
+                <div className="scrollingWrapper">
+                    <BookShelf data={this.props.data.books} type="wantToRead" />
+                </div>
+                <h2 className="bookShelfTitle">Read</h2>
+                <div className="scrollingWrapper">
+                    <BookShelf data={this.props.data.books} type="read" />
+                </div>
             </div>
         )
     }

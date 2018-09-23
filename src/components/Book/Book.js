@@ -19,7 +19,8 @@ import BookCategoryOption from './BookCategoryOption';
 
 const styles = theme => ({
   card: {
-    maxWidth: 300,
+    width: 300,
+    margin: 10
   },
   media: {
     height: 0,
@@ -44,6 +45,9 @@ const styles = theme => ({
   avatar: {
     backgroundColor: red[500],
   },
+  title: {
+    fontSize: '1rem'
+  }
 });
 
 class Book extends React.Component {
@@ -90,6 +94,9 @@ class Book extends React.Component {
         action={
           <BookCategoryOption data={this.props.data} />
        }
+       classes={{
+         title: classes.title
+       }}
           title={this.props.data.title || "Name not available"}
           subheader={this.getAuthorName()}
         />
