@@ -3,10 +3,17 @@ import * as BooksApi from '../BooksAPI';
 import escapeRegexp from 'escape-string-regexp';
 import SearchBar from 'material-ui-search-bar';
 import ShowSearchResults from './ShowSearchResults';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getAllBooks } from '../action';
 class SearchBooks extends Component {
     state = {
         query: "",
         data: []
+    }
+
+    componentWillMount(){
+        this.props.getAllBooks();
     }
 
     handleSearchInput = (query) => {
@@ -20,7 +27,16 @@ class SearchBooks extends Component {
                 if(this.state.query === ""){
                     this.setState({data: []})
                 }else{
-                    this.setState({data})
+                    let arr = data.slice();
+                    for(let i =0; i < data.length; i++){
+                        for(let j = 0; j < this.props.data.books.length; j++){
+                            if(data[i].id === this.props.data.books[j].id){
+                                arr.splice(i, 1, this.props.data.books[j]);
+                            }
+                        }
+                    }
+                    console.log(arr)
+                    this.setState({data: arr})
                 }
             }
             console.log(this.state.data, this.state.query);
@@ -31,6 +47,7 @@ class SearchBooks extends Component {
     }
 
     render() {
+        console.log(this.props.data.books);
         return (
             <div>
                 <SearchBar
@@ -45,4 +62,16 @@ class SearchBooks extends Component {
       }
 }
 
-export default SearchBooks;
+const mapStateToProps = (state) => {
+    return {
+        data: state.books
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        getAllBooks
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBooks);
