@@ -1,5 +1,5 @@
 import React from 'react';
-import SimpleNavBar from './components/AppBar/SimpleNavBar';
+import SimpleNavBar from '../components/AppBar/SimpleNavBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 const Search = () => (
