@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getAllBooks, updateBookCategory } from '../../action';
+import { updateBookCategory, getAllBooks } from '../../action';
 
 const options = [
   'currentlyReading',
@@ -32,11 +32,12 @@ class BookCategoryOption extends React.Component {
 
   handleSelectInput = (e, book) => {
     console.log(e.currentTarget.innerText ,book);
-    this.props.updateBookCategory(book, e.currentTarget.innerText)
+    this.props.updateBookCategory(book, e.currentTarget.innerText).then(_ => {
+      this.props.getAllBooks();
+    });
     this.setState({
         option: e.currentTarget.innerText
     })
-    this.props.getAllBooks();
     this.handleClose();
 }
 
@@ -79,8 +80,8 @@ class BookCategoryOption extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    getAllBooks,
-    updateBookCategory
+    updateBookCategory,
+    getAllBooks
   }, dispatch);
 }
 
