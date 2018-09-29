@@ -29,15 +29,10 @@ class NavBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
             <Typography variant="title" color="inherit" className={classes.grow}>
               MyReads
             </Typography>
-            <IconButton>
               <Link to="/search" style={{ textDecoration: 'none' , color: 'white' }} ><i style={{'padding':'12px'}} className="material-icons">search</i></Link>
-            </IconButton>
           </Toolbar>
         </AppBar>
       </div>
