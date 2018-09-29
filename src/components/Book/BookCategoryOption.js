@@ -43,7 +43,7 @@ class BookCategoryOption extends React.Component {
   render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
-
+    // console.log(this.state.option, this.props.data.shelf);
     return (
       <div>
         <IconButton
@@ -52,7 +52,7 @@ class BookCategoryOption extends React.Component {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          <MoreVertIcon />
+          <MoreVertIcon onClick={() => { this.setState({ option: this.props.data.shelf || 'none' });  }} />
         </IconButton>
         <Menu
           id="long-menu"
