@@ -1,7 +1,6 @@
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -68,9 +67,9 @@ class BookCategoryOption extends React.Component {
           }}
         >
           {options.map(option => (
-            <MenuItem key={option} selected={option === this.state.option} onClick={(e) => this.handleSelectInput(e, this.props.data)}>
+            <li style={{padding: '10px'}} key={option} selected={option === this.state.option} onClick={(e) => this.handleSelectInput(e, this.props.data)}>
               {option}
-            </MenuItem>
+            </li>
           ))}
         </Menu>
       </div>
