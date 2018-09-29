@@ -18,7 +18,7 @@ const ITEM_HEIGHT = 48;
 class BookCategoryOption extends React.Component {
   state = {
     anchorEl: null,
-    option: this.props.data.shelf || 'none'
+    option: this.props.data.shelf
   };
 
   handleClick = event => {
@@ -52,7 +52,7 @@ class BookCategoryOption extends React.Component {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          <MoreVertIcon onClick={() => { this.setState({ option: this.props.data.shelf || 'none' });  }} />
+          <MoreVertIcon onClick={() => { if(this.state.option === undefined) this.setState({ option: this.props.data.shelf || 'none' });  }} />
         </IconButton>
         <Menu
           id="long-menu"
