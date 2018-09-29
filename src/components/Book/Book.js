@@ -88,6 +88,10 @@ class Book extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const { title = "Name not available", averageRating="No rating available",
+            categories, maturityRating="Maturity rating not available",
+            pageCount="pageCount", publishedDate="Publish date not available",
+            publisher="Publisher name not available", authors } = this.props.data;
 
     return (
       <Card className={classes.card}>
@@ -98,8 +102,8 @@ class Book extends React.Component {
        classes={{
          title: classes.title
        }}
-          title={this.props.data.title || "Name not available"}
-          subheader={this.getListSepratedByComma(this.props.data.authors) || "Author name not available"}
+          title={title}
+          subheader={this.getListSepratedByComma(authors) || "Author name not available"}
         />
         <CardMedia
           className={classes.media}
@@ -131,10 +135,10 @@ class Book extends React.Component {
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph variant="body2">
-              Average Rating: {this.props.data.averageRating || 'No rating available'}
+              Average Rating: {averageRating}
             </Typography>
             <Typography paragraph variant="body2">
-              Category: {this.getListSepratedByComma(this.props.data.categories) || 'No rating available'}
+              Category: {this.getListSepratedByComma(categories)}
             </Typography>
             <Typography paragraph variant="body2">
               Description:
@@ -143,16 +147,16 @@ class Book extends React.Component {
               {this.getBookDescription() || 'Description not available'}
             </Typography>
             <Typography paragraph variant="body2" >
-              MaturityRating: {this.props.data.maturityRating || 'Maturity rating not available'},
+              MaturityRating: {maturityRating},
             </Typography>
             <Typography paragraph variant="body2" >
-              PageCount: {this.props.data.pageCount || 'Page count not avaliable'},
+              PageCount: {pageCount},
             </Typography>
             <Typography paragraph variant="body2" >
-              PublishedDate: {this.props.data.publishedDate || 'Publish date not available'},
+              PublishedDate: {publishedDate},
             </Typography>
             <Typography paragraph variant="body2" >
-              Publisher: {this.props.data.publisher || 'Publisher name not available'}
+              Publisher: {publisher}
             </Typography>
           </CardContent>
         </Collapse>
