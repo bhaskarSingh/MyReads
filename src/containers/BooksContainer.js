@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import BookShelf from '../components/BookShelf';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -7,26 +7,32 @@ import './BookContainer.css'
 
 class BooksContainer extends Component {
 
+    shelves = [
+        ['Currently Reading', 'currentlyReading'],
+        ['Want to read', 'wantToRead'],
+        ['Read', 'read']
+    ]
+
     componentDidMount(){
         this.props.getAllBooks();
     }
 
+    mappedShelves = () => (
+        this.shelves.map(shelf => (
+            <Fragment key={shelf[1]} >
+                <h2 className="bookShelfTitle">{shelf[0]}</h2>
+                <div className="scrollingWrapper">
+                    <BookShelf data={this.props.data.books} type={shelf[1]} />
+                </div>
+            </Fragment>
+        ))
+    )
+
     render() {
         return (
-            <div>
-                <h2 className="bookShelfTitle">Currently Reading</h2>
-                <div className="scrollingWrapper">
-                    <BookShelf data={this.props.data.books} type="currentlyReading" />
-                </div>
-                <h2 className="bookShelfTitle">Want to read</h2>
-                <div className="scrollingWrapper">
-                    <BookShelf data={this.props.data.books} type="wantToRead" />
-                </div>
-                <h2 className="bookShelfTitle">Read</h2>
-                <div className="scrollingWrapper">
-                    <BookShelf data={this.props.data.books} type="read" />
-                </div>
-            </div>
+            <Fragment>
+                { this.mappedShelves() }
+            </Fragment>
         )
     }
 }
