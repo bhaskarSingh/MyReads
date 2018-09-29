@@ -17,33 +17,27 @@ class SearchBooks extends Component {
     }
 
     handleSearchInput = (query) => {
-        const val = escapeRegexp(query, 'i');
-        this.setState({
-            query: val
-        });
-        BooksApi.search(query).then((data) => {
-            // debugger
-            if(data !== undefined && data.length > 0){
-                if(this.state.query === ""){
-                    this.setState({data: []})
-                }else{
-                    let arr = data.slice();
-                    for(let i =0; i < data.length; i++){
-                        for(let j = 0; j < this.props.data.books.length; j++){
-                            if(data[i].id === this.props.data.books[j].id){
-                                arr.splice(i, 1, this.props.data.books[j]);
-                            }
+        this.setState({ query: escapeRegexp(query, 'i') });
+        if(this.state.query){
+            BooksApi.search(query).then((data) => {
+                const arr = data.slice();
+                for(let i =0; i < data.length; i++){
+                    for(let j = 0; j < this.props.data.books.length; j++){
+                        if(data[i].id === this.props.data.books[j].id){
+                            arr.splice(i, 1, this.props.data.books[j]);
                         }
                     }
-                    console.log(arr)
-                    this.setState({data: arr})
                 }
-            }
-            console.log(this.state.data, this.state.query);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+                console.log(arr)
+                this.setState({data: arr})
+                console.log(this.state.data, this.state.query);
+            })
+            .catch(() => {
+                this.setState({ data: [] });
+            })
+        } else {
+            this.setState({data: [] });
+        }
     }
 
     render() {
