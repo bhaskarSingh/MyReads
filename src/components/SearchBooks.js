@@ -6,6 +6,7 @@ import ShowSearchResults from './ShowSearchResults';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllBooks } from '../action';
+import { debounce } from 'lodash';
 class SearchBooks extends Component {
     state = {
         query: "",
@@ -16,7 +17,7 @@ class SearchBooks extends Component {
         this.props.getAllBooks();
     }
 
-    handleSearchInput = (query) => {
+    handleSearchInput = debounce((query) => {
         this.setState({ query: escapeRegexp(query, 'i') });
         if(this.state.query){
             BooksApi.search(query).then((data) => {
@@ -38,7 +39,7 @@ class SearchBooks extends Component {
         } else {
             this.setState({data: [] });
         }
-    }
+    }, 500);
 
     render() {
         console.log(this.props.data.books);
