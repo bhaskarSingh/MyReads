@@ -1,4 +1,7 @@
 # How to run the application
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/bhaskarSingh/MyReads.svg)](https://greenkeeper.io/)
+
 Change directory into the project & run `npm install` and `npm start`
 
 ## About the project
